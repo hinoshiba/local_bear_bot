@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import yaml
 import requests
@@ -139,9 +139,9 @@ RUBI_URLS=[
         "http://blog.livedoor.jp/scorpio11honey/archives/49909061.html",
         ]
 _PATH_CONFIG=str(Path.home())+"/.localbearbot.yml"
-_PATH_LOG="./localbearbot.log"
-_PATH_MASTER="./master.list"
-_Debug=True
+_PATH_LOG=str(Path.home())+"/.local/var/local_bear_bot/local_bear_bot.log"
+_PATH_MASTER=str(Path.home())+"/.local/var/local_bear_bot/master.list"
+_Debug=False
 _TwObj=""
 _Log=setLogging(_Debug)
 if __name__ == '__main__':
