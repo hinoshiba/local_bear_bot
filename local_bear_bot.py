@@ -84,6 +84,28 @@ class RubiBlog():
         _Log.info(self.__LOG_STR+"get urldata:"+_url)
         _textbody = str((BeautifulSoup((requests.get(_url)).text,'lxml')).find_all("div", attrs={"class": "article-body-inner"})[0])
         return re.sub("<.*"," #rubi_blog",re.sub("・","\r\n",re.sub("●","\r\n",_textbody)))
+class OfficalFujiseySan():
+    __Kw=""
+    __Url="http://www.fujisey.co.jp/gotouchibear/"
+    __LOG_STR="[FUJISEY]"
+    __HashTag="#Fujisay_Offical"
+
+    def __init__(self):
+        _Log.info(self.__LOG_STR+"start fujisey-san")
+
+    def getBearList(self):
+        _result=[]
+        for row in self.getUrlData():
+            _lnk=row.get('href')
+            _name=BeautifulSoup(str(row.find('em')),'lxml').text
+            _result.extend([_name + " " + self.__HashTag + " " + _lnk])
+        print(len(_result))
+        return _result
+
+    def getUrlData(self):
+        _Log.info(self.__LOG_STR+"get url data:"+self.__Url)
+        return (BeautifulSoup((requests.get(self.__Url)).text,'lxml')).find_all("a", attrs={"class": "a-item"})
+
 def loadYaml(_path):
     global _Log
     global _Config
@@ -131,7 +153,7 @@ def sayTw(_str=""):
     except:
         _Log.warning("tweet faled")
         return False
-    
+
 RAKUTEN_KEYWORD="ご当地ベア"
 RUBI_KEYWORD="ベア"
 RUBI_URLS=[
@@ -151,5 +173,6 @@ if __name__ == '__main__':
     _now_bears=[]
     _now_bears.extend(RAKUTEN(_Config['RAKUTEN_ID'],RAKUTEN_KEYWORD).getBearList())
     _now_bears.extend(RubiBlog(RUBI_KEYWORD,RUBI_URLS).getBearList())
+    _now_bears.extend(OfficalFujiseySan().getBearList())
     checkNewBear(open(_PATH_MASTER, 'r+'),_now_bears)
     _Log.info("EndMain")
