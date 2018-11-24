@@ -96,9 +96,15 @@ class OfficalFujiseySan():
     def getBearList(self):
         _result=[]
         for row in self.getUrlData():
-            _lnk=row.get('href')
-            _name=BeautifulSoup(str(row.find('em')),'lxml').text
+            _lnk=str(row.get('href'))
+            _name=str(BeautifulSoup(str(row.find('em')),'lxml').text)
+            if _name == "None" :
+                _name = "名前取得不可"
             _result.extend([_name + " " + self.__HashTag + " " + _lnk])
+            if _DBInit :
+                _Log.info(self.__LOG_STR+"adding empty data")
+                _name = "名前取得不可"
+                _result.extend([_name + " " + self.__HashTag + " " + _lnk])
         return _result
 
     def getUrlData(self):
@@ -144,6 +150,9 @@ def makeTwAuth():
 def sayTw(_str=""):
     global _TwObj
     _Log.info("sayTwert:"+_str)
+    if _DBInit :
+        _Log.info("DB Initializing. noneTwert:"+_str)
+        return True
     try:
         _TwObj.statuses.update(status=_str)
         _Log.info("tweet success....sleep 2")
@@ -163,6 +172,7 @@ _PATH_CONFIG=str(Path.home())+"/.localbearbot.yml"
 _PATH_LOG=str(Path.home())+"/.local/var/local_bear_bot/local_bear_bot.log"
 _PATH_MASTER=str(Path.home())+"/.local/var/local_bear_bot/master.list"
 _Debug=False
+_DBInit=False
 _TwObj=""
 _Log=setLogging(_Debug)
 if __name__ == '__main__':
