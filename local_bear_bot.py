@@ -33,7 +33,7 @@ class RAKUTEN():
     def setKeyword(self,_kw):
         _Log.info(self.__LOG_STR+"set search keyword")
         self.__Kw = _kw
-    def __setApplicationid(self,_id): 
+    def __setApplicationid(self,_id):
         _Log.info(self.__LOG_STR+"set application id")
         self.__Applicationid = _id
     def getApplicationid():
@@ -99,7 +99,6 @@ class OfficalFujiseySan():
             _lnk=row.get('href')
             _name=BeautifulSoup(str(row.find('em')),'lxml').text
             _result.extend([_name + " " + self.__HashTag + " " + _lnk])
-        print(len(_result))
         return _result
 
     def getUrlData(self):
