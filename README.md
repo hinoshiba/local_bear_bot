@@ -16,9 +16,11 @@
 
 ## 情報収集対象
 * rakuten api : 楽天apiの情報取得
-        * https://webservice.rakuten.co.jp/document/
+	* https://webservice.rakuten.co.jp/document/
 * 個人ブログさん：ルビのJewelBox
-        * http://blog.livedoor.jp/scorpio11honey/archives/51341541.html
+	* http://blog.livedoor.jp/scorpio11honey/archives/51341541.html
+* ご当地ベア公式サイト
+	* http://www.fujisey.co.jp/gotouchibear/
 
 # 自分で動かしたい人向け
 ## インストール
